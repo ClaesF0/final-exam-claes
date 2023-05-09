@@ -1,19 +1,27 @@
 import React from "react";
+import { useState } from "react";
+
 //import { Link } from "react-router-dom";
 const ListingList = ({ listings }) => {
+  const [charLimit, setCharLimit] = React.useState(32); // default character limit
+  const [showMore, setShowMore] = React.useState(false);
+
+  const toggleShowMore = () => setShowMore(!showMore);
+
+
     return (
         <>
         <p>All listings</p>
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 ">
+        <div className="flex flex-wrap justify-center gap-4">
             {listings.map((listing) => (
-                <div key={listing.id} className="border border-gray-500 rounded-md p-4"> 
-                    <div className="inline-flex flex-col items-center justify-end w-72 border border-red-500 p-4">
-        <div className="inline-flex space-x-14 items-center justify-end w-64 h-2/3 pl-24 pr-3 py-28 bg-gray-300 rounded-lg">
-          <p className="w-24 h-2/3 text-xs">Media images</p>
-          <img className="w-6 h-full rounded-lg" src="https://via.placeholder.com/24x24" alt="Placeholder Image"/>
-        </div>
-        <p className=" h-4 text-sm font-semibold">{listing.name}</p>
+                <div key={listing.id} className=""> 
+                    <div className="inline-flex flex-col items-center min-h-[500px] h-full border border-red-500 py-2 ">
+        <img className="inline-flex w-64 h-64 object-cover backdrop-blur-md bg-gray-300 rounded-lg" src={listing.media[0]}/>
+
+        
+        <p className="text-sm font-semibold">{listing.name}</p>
           <div className="relative w-72 px-4 inline-flex">
+            
             {listing.meta.parking && (
               <img className="w-5 h-5 rounded-lg m-1" src="src/assets/parking.svg" alt="Parking possibilities"/>)}
             {listing.meta.wifi && (
@@ -27,31 +35,44 @@ const ListingList = ({ listings }) => {
               <p className="text-md font-semibold">{listing.maxGuests}</p>
           </div>
         </div>
-        <div className="flex items-center mb-2">
-                <label className="rating-label mr-2">
+          <div className=" left-0 relative border-2 border-red-500">
+                <label className="rating-label">
                   <span className="text-xs text-gray-500">
                     Rated {listing.rating}/5
                   </span>
                   <input
                     aria-label={`Rating  out of 5`}
-                    className="rating w-20 h-4 mx-2"
+                    className="rating h-4"
                     max="5"
                     readOnly
                     step="0.01"
                     style={{ "--fill": "#0097a7", "--value": listing.rating}}// 
                     type="range"
                   />
-                </label>
-                <p className="text-gray-500 text-xs">
-                  listing.reviews.length reviews
-                </p>
-              </div>
-        <div>
-          <p className="w-56 h-4 text-xs font-light">Description of venue:</p>
-          <p className="w-56 h-4 text-xs font-medium">{listing.description}</p>
-          <p className="w-56 h-4 absolute text-xs font-medium">Price of the venue</p>
-        </div>
-      </div>
+                </label>  
+          </div>
+          <p className="w-56 text-xs font-medium max-h-[10em]">
+            
+  {listing.description.slice(0, charLimit)}
+  {listing.description.length > charLimit && !showMore ? "..." : ""}
+  
+</p>
+
+{showMore && (
+  <p className="w-56 p-1 text-xs font-medium">
+    {listing.description.slice(charLimit)}
+  </p>
+)}
+
+{listing.description.length > charLimit ? (
+    <div className="p-1 mt-2">
+      <button className="border-2 border-red-500 p-1 mt-1 w-56 text-xs font-medium" style={{verticalAlign: 'top'}} onClick={toggleShowMore}>
+        {showMore ? "Show less" : "Show more"}
+      </button>
+    </div>
+  ) : null}
+
+                  </div>
                 </div>
             ))}
             </div>
