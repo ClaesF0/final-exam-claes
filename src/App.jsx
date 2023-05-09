@@ -1,37 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import './index.css'
+import "./App.css";
+import "./index.css";
+import Navbar from './components/Navbar';
+import  {fetchListings}  from './store/modules/listingsReducer';
+import ListingList from './components/ListingList';
+import { useEffect } from 'react';
+import React from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import Listings from './components/views/Listings';
+import Router from './routes/Router';
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
+  const dispatch = useDispatch();
+  //const {listings} = useSelector((state) => state.listingsReducer);
+  //console.log("listings",listings)
+  useEffect(() => {
+    dispatch(fetchListings());
+  }, [dispatch]);
+  
   return (
-    <>
-      <div >
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p className="text-3xl text-red-500">Vite + React app. Dette er en test.</p>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      hei
+      <Router />
+      
+    </div>
+  );
 }
 
-export default App
+export default App;
