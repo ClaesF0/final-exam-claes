@@ -21,7 +21,7 @@ function App() {
   
   return (
     <div className="App">
-      hei
+      <Navbar/>
       <Router />
       
     </div>
