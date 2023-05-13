@@ -39,8 +39,8 @@ const Navbar = () => {
               />
             </button>
           </div>
-          <span className="ml-auto flex items-center">
-            <p class="w-1/5% text-sm font-bold hidden lg:block">
+          <div className="ml-auto flex items-center">
+            <p class="w-1/5% text-sm font-bold hidden lg:block whitespace-pre-wrap">
               Become a Holidaze host
             </p>
             <p class="w-1/5% text-sm font-bold flex-wrap lg:hidden">Hosting</p>
@@ -52,7 +52,7 @@ const Navbar = () => {
                 alt=""
               />
             </button>
-          </span>
+          </div>
 
           <div class="relative bg-white border-2 border-primary rounded-full inline-flex items-center">
             <div class="flex items-center">
@@ -62,13 +62,37 @@ const Navbar = () => {
               >
                 <FontAwesomeIcon icon={isOpen ? faXmark : faBars} />
               </button>
-              <button class=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full mx-1 active:scale-95 transition duration-150 ease-in-out">
+
+              <button class=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
                 <img
                   class="h-6 w-6 mx-auto"
                   src=" src/assets/usericon.svg "
                   alt="Search"
                 />
               </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`w-[200px} absolute bg-white border-2 border-primary rounded-md inline-flex  right-6 top-20 ${
+            isOpen ? "" : "hidden"
+          }`}
+        >
+          <div className="">
+            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+              Account
+            </div>
+            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+              Bookings
+            </div>
+            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+              Holidaze your home
+            </div>
+            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+              Hosting pages
+            </div>
+            <div className="p-2 hover:bg-secondary hover:text-primary active:bg-red-500 active:text-white transition duration-150 ease-in-out ">
+              Log out
             </div>
           </div>
         </div>

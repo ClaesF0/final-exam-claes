@@ -3,18 +3,17 @@ import { useState } from "react";
 
 //import { Link } from "react-router-dom";
 const ListingList = ({ listings }) => {
-  const [charLimit, setCharLimit] = React.useState(32); // default character limit
+  const [charLimit, setCharLimit] = React.useState(60); // default character limit
   const [showMore, setShowMore] = React.useState(false);
 
   const toggleShowMore = () => setShowMore(!showMore);
 
   return (
     <>
-      <p>All listings</p>
       <div className="flex flex-wrap justify-center gap-4">
         {listings.map((listing) => (
           <div key={listing.id} className="">
-            <div className="inline-flex flex-col items-center min-h-[500px] h-full border border-red-500 py-2 ">
+            <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
               <img
                 className="inline-flex w-64 h-64 object-cover backdrop-blur-md bg-gray-300 rounded-lg"
                 src={listing.media[0]}
@@ -59,14 +58,11 @@ const ListingList = ({ listings }) => {
                   <p className="text-md font-semibold">{listing.maxGuests}</p>
                 </div>
               </div>
-              <div className=" left-0 relative border-2 border-red-500">
-                <label className="rating-label">
-                  <span className="text-xs text-gray-500">
-                    Rated {listing.rating}/5
-                  </span>
+              <div className="w-full px-4 flex justify-between">
+                <label className="rating-label py-1 ">
                   <input
-                    aria-label={`Rating  out of 5`}
-                    className="rating h-4"
+                    aria-label={`Rated {listing.rating} out of 5`}
+                    className="rating"
                     max="5"
                     readOnly
                     step="0.01"
@@ -74,8 +70,12 @@ const ListingList = ({ listings }) => {
                     type="range"
                   />
                 </label>
+                <div className="">
+                  <p className="text-xs py-1 "> {listing.price} € / night </p>
+                </div>
               </div>
-              <p className="w-56 text-xs font-medium max-h-[10em]">
+
+              <p className="w-64 text-xs font-medium ">
                 {listing.description.slice(0, charLimit)}
                 {listing.description.length > charLimit && !showMore
                   ? "..."
@@ -83,15 +83,15 @@ const ListingList = ({ listings }) => {
               </p>
 
               {showMore && (
-                <p className="w-56 p-1 text-xs font-medium">
+                <p className="w-64 text-xs font-medium">
                   {listing.description.slice(charLimit)}
                 </p>
               )}
 
               {listing.description.length > charLimit ? (
-                <div className="p-1 mt-2">
+                <div className="">
                   <button
-                    className="border-2 border-red-500 p-1 mt-1 w-56 text-xs font-medium"
+                    className="border-2 rounded-md p-1 my-1 border-charcoal w-64 text-xs font-medium"
                     style={{ verticalAlign: "top" }}
                     onClick={toggleShowMore}
                   >
