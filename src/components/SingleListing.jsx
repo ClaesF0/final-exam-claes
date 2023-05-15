@@ -14,6 +14,7 @@ import parkingIcon from "../assets/parking.svg";
 import wifiIcon from "../assets/wifi.svg";
 import petsIcon from "../assets/pets.svg";
 import breakfastIcon from "../assets/breakfast.svg";
+import guestsIcon from "../assets/guests.svg";
 
 const SingleListing = () => {
   const { id } = useParams();
@@ -69,7 +70,7 @@ const SingleListing = () => {
         <div class="container mx-auto flex flex-col md:flex-row px-2 ">
           <div class="w-full md:w-3/4 lg:w-1/2  md:mb-0 mx-auto">
             <img
-              className={`max-h-screen object-fit object-center rounded mx-auto ${
+              className={`max-h-screen object-fit object-center rounded mx-auto mt-1 ${
                 selectedImageIndex === 0 ? "" : ""
               }`}
               src={listing.media && listing.media[selectedImageIndex]}
@@ -92,7 +93,7 @@ const SingleListing = () => {
             </div>
           </div>
 
-          <div class="w-full md:w-1/3 block ">
+          <div class="w-full md:w-1/3 block mx-1">
             <h1 class="text-2xl font-bold mb-2 mx-auto">{listing.name}</h1>
 
             <div class="text-sm font-semibold  pl-0 text-start">
@@ -108,6 +109,42 @@ const SingleListing = () => {
                   alt="Rated {listing.rating}/5"
                 />
               </label>
+              <div className="relative w-72 inline-flex">
+                {listing.meta?.parking && (
+                  <img
+                    className="w-5 h-5 rounded-lg m-1"
+                    src={parkingIcon}
+                    alt="Parking possibilities"
+                  />
+                )}
+                {listing.meta?.wifi && (
+                  <img
+                    className="w-5 h-5 rounded-lg m-1"
+                    src={wifiIcon}
+                    alt="Wifi access"
+                  />
+                )}
+                {listing.meta?.pets && (
+                  <img
+                    className="w-5 h-5 rounded-lg m-1"
+                    src={petsIcon}
+                    alt="Pet-friendly"
+                  />
+                )}
+                {listing.meta?.breakfast && (
+                  <img
+                    className="w-5 h-5 rounded-lg m-1"
+                    src={breakfastIcon}
+                    alt="Breakfast included"
+                  />
+                )}
+
+                <img
+                  className="w-5 h-5 rounded-lg m-1 ml-auto"
+                  src={guestsIcon}
+                />
+                {listing.maxGuests}
+              </div>
               <p className="text-xs">About:</p>
             </div>
 
@@ -227,7 +264,7 @@ const SingleListing = () => {
                         <div className="inline-flex ml-auto">
                           <img
                             className="w-5 h-5 rounded-full m-1"
-                            src="src/assets/guests.svg"
+                            src={guestsIcon}
                             alt="Number of guests"
                           />
                           <p className="text-md font-semibold">
@@ -253,7 +290,7 @@ const SingleListing = () => {
                         <div className="">
                           <p className="text-xs py-1 ">
                             {" "}
-                            {item.price} € / night{" "}
+                            {item.price} / night{" "}
                           </p>
                         </div>
                       </div>
