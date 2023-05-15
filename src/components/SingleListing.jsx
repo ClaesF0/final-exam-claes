@@ -67,8 +67,8 @@ const SingleListing = () => {
   return (
     <>
       <div>
-        <div class="container mx-auto flex flex-col md:flex-row px-2 ">
-          <div class="w-full md:w-3/4 lg:w-1/2  md:mb-0 mx-auto">
+        <div className="container mx-auto flex flex-col md:flex-row px-2 ">
+          <div className="w-full md:w-3/4 lg:w-1/2  md:mb-0 mx-auto">
             <img
               className={`max-h-screen object-fit object-center rounded mx-auto mt-1 ${
                 selectedImageIndex === 0 ? "" : ""
@@ -92,15 +92,13 @@ const SingleListing = () => {
                 ))}
             </div>
           </div>
-
-          <div class="w-full md:w-1/3 block mx-1">
-            <h1 class="text-2xl font-bold mb-2 mx-auto">{listing.name}</h1>
-
-            <div class="text-sm font-semibold  pl-0 text-start">
-              <label class="rating-label ">
+          <div className="w-full md:w-1/3 block mx-1">
+            <h1 className="text-2xl font-bold mb-2 mx-auto">{listing.name}</h1>
+            <div className="text-sm font-semibold  pl-0 text-start">
+              <label className="rating-label ">
                 <input
                   aria-label={`Rating ${listing.rating} out of 5`}
-                  class="rating"
+                  className="rating"
                   max="5"
                   readonly
                   step="0.01"
@@ -148,7 +146,7 @@ const SingleListing = () => {
               <p className="text-xs">About:</p>
             </div>
 
-            <p class="text-sm mb-4">{listing.description}</p>
+            <p className="text-sm mb-4">{listing.description}</p>
             <p className="text-lg font-medium">
               Price:{" "}
               {listing.discountedPrice && listing.discountedPrice.toFixed(2)}
@@ -172,7 +170,7 @@ const SingleListing = () => {
                 ))}
             </div>
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               type="submit"
               onClick={() => dispatch(addToCart(listing))}
             >
@@ -225,7 +223,16 @@ const SingleListing = () => {
                   className="border border-gray-300 rounded-lg p-4 mb-4 mr-4 sm:w-[300px] "
                 >
                   <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
-                    <Link to={`/listings/${item.id}`}>
+                    <Link
+                      to={`/listings/${item.id}`}
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 0,
+                          left: 0,
+                          behavior: "smooth",
+                        });
+                      }}
+                    >
                       <img
                         className="inline-flex w-64 h-64 object-cover backdrop-blur-md bg-gray-300 rounded-lg"
                         src={item.media[0]}

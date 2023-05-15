@@ -82,7 +82,7 @@ function Search() {
                         .join(" ")
                         .replace(
                           new RegExp(query, "gi"),
-                          `<span class="text-primary font-extrabold">${query}</span>`
+                          `<span className="text-primary font-extrabold">${query}</span>`
                         ),
                     }}
                   />

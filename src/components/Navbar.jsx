@@ -24,9 +24,14 @@ const Navbar = () => {
   return (
     <>
       <nav className="border-b-2 flex-wrap backdrop-blur-xl bg-gray-200 bg-opacity-50 border-primary border-gray-200  px-10 md:px-4 py-2.5 rounded sticky top-0 z-10 mx-auto justify-center h-28 md:py-6">
-        <div class="inline-flex items-center justify-center px-2 pt-10% pb-2.3% mx-auto w-full h-40% ">
-          <Link to="/">
-            <p class="ml-0 w-1/5 h-1.6% text-2xl font-bold text-primary">
+        <div className="inline-flex items-center justify-center px-2 pt-10% pb-2.3% mx-auto w-full h-40% ">
+          <Link
+            to="/"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          >
+            <p className="ml-0 w-1/5 h-1.6% text-2xl font-bold text-primary">
               Holidaze
               <br />
             </p>
@@ -34,18 +39,20 @@ const Navbar = () => {
 
           <Search className="" />
           <div className="ml-auto flex items-center">
-            <p class="w-1/5% text-xs font-bold hidden lg:block whitespace-pre-wrap">
+            <p className="w-1/5% text-xs font-bold hidden lg:block whitespace-pre-wrap">
               Become a Holidaze host
             </p>
-            <p class="w-1/5% text-sm font-bold flex-wrap lg:hidden">Hosting</p>
+            <p className="w-1/5% text-sm font-bold flex-wrap lg:hidden">
+              Hosting
+            </p>
 
-            <button class="bg-primary border-2 border-primary h-[40px] w-[40px] rounded-full mx-4 active:scale-95 transition duration-150 ease-in-out">
-              <img class="h-6 w-6 mx-auto" src={moneyBagIcon} alt="" />
+            <button className="bg-primary border-2 border-primary h-[40px] w-[40px] rounded-full mx-4 active:scale-95 transition duration-150 ease-in-out">
+              <img className="h-6 w-6 mx-auto" src={moneyBagIcon} alt="" />
             </button>
           </div>
 
-          <div class="relative bg-white border-2 border-primary rounded-full inline-flex items-center">
-            <div class="flex items-center">
+          <div className="relative bg-white border-2 border-primary rounded-full inline-flex items-center">
+            <div className="flex items-center">
               <button
                 className="bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out text-white "
                 onClick={handleToggle}
@@ -53,9 +60,9 @@ const Navbar = () => {
                 <FontAwesomeIcon icon={isOpen ? faXmark : faBars} />
               </button>
 
-              <button class=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
+              <button className=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
                 <img
-                  class="h-6 w-6 mx-auto"
+                  className="h-6 w-6 mx-auto"
                   src={userIcon}
                   alt="Your profile"
                 />

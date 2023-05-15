@@ -69,7 +69,12 @@ const ListingList = ({ listings }) => {
       <div className="flex flex-wrap justify-center gap-4">
         {filteredListings.map((listing) => (
           <div key={listing.id} className="">
-            <Link to={`/listings/${listing.id}`}>
+            <Link
+              to={`/listings/${listing.id}`}
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}
+            >
               <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
                 <img
                   className="inline-flex w-64 h-64 object-cover backdrop-blur-md bg-gray-300 rounded-lg"
