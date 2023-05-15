@@ -8,10 +8,66 @@ const ListingList = ({ listings }) => {
 
   const toggleShowMore = () => setShowMore(!showMore);
 
+  const [filters, setFilters] = useState({
+    wifi: false,
+    parking: false,
+    breakfast: false,
+    pets: false,
+  });
+
+  const handleFilterChange = (filterName) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterName]: !prevFilters[filterName],
+    }));
+  };
+
+  const filteredListings = listings.filter((listing) => {
+    return Object.keys(filters).every((filter) => {
+      return !filters[filter] || listing.meta[filter];
+    });
+  });
+
   return (
     <>
+      <div>
+        <h1>Filters</h1>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.wifi}
+            onChange={() => handleFilterChange("wifi")}
+          />
+          WiFi
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.parking}
+            onChange={() => handleFilterChange("parking")}
+          />
+          Parking
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.breakfast}
+            onChange={() => handleFilterChange("breakfast")}
+          />
+          Breakfast
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.pets}
+            onChange={() => handleFilterChange("pets")}
+          />
+          Pets
+        </label>
+      </div>
+
       <div className="flex flex-wrap justify-center gap-4">
-        {listings.map((listing) => (
+        {filteredListings.map((listing) => (
           <div key={listing.id} className="">
             <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
               <img
