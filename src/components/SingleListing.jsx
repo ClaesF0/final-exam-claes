@@ -76,7 +76,7 @@ const SingleListing = () => {
               alt={listing.name}
               onClick={() => setSelectedImageIndex(0)}
             />
-            <div className="flex flex-wrap ">
+            <div className="flex flex-wrap">
               {listing.media &&
                 listing.media.map((media, index) => (
                   <img
@@ -187,8 +187,8 @@ const SingleListing = () => {
                   key={item.id}
                   className="border border-gray-300 rounded-lg p-4 mb-4 mr-4 sm:w-[300px] "
                 >
-                  <Link to={`/listings/${item.id}`}>
-                    <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
+                  <div className="inline-flex flex-col items-center min-h-[300px] h-full py-2 rounded-md">
+                    <Link to={`/listings/${item.id}`}>
                       <img
                         className="inline-flex w-64 h-64 object-cover backdrop-blur-md bg-gray-300 rounded-lg"
                         src={item.media[0]}
@@ -257,33 +257,32 @@ const SingleListing = () => {
                           </p>
                         </div>
                       </div>
+                    </Link>
+                    <p className="w-64 text-xs font-medium ">
+                      {item.description.slice(0, charLimit)}
+                      {item.description.length > charLimit && !showMore
+                        ? "..."
+                        : ""}
+                    </p>
 
-                      <p className="w-64 text-xs font-medium ">
-                        {item.description.slice(0, charLimit)}
-                        {item.description.length > charLimit && !showMore
-                          ? "..."
-                          : ""}
+                    {showMore && (
+                      <p className="w-64 text-xs font-medium">
+                        {item.description.slice(charLimit)}
                       </p>
+                    )}
 
-                      {showMore && (
-                        <p className="w-64 text-xs font-medium">
-                          {item.description.slice(charLimit)}
-                        </p>
-                      )}
-
-                      {item.description.length > charLimit ? (
-                        <div className="">
-                          <button
-                            className="border-2 rounded-md p-1 my-1 border-charcoal w-64 text-xs font-medium"
-                            style={{ verticalAlign: "top" }}
-                            onClick={toggleShowMore}
-                          >
-                            {showMore ? "Show less" : "Show more"}
-                          </button>
-                        </div>
-                      ) : null}
-                    </div>
-                  </Link>
+                    {item.description.length > charLimit ? (
+                      <div className="">
+                        <button
+                          className="border-2 rounded-md p-1 my-1 border-charcoal w-64 text-xs font-medium"
+                          style={{ verticalAlign: "top" }}
+                          onClick={toggleShowMore}
+                        >
+                          {showMore ? "Show less" : "Show more"}
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
