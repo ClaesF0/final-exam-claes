@@ -147,16 +147,9 @@ const SingleListing = () => {
             </div>
 
             <p className="text-sm mb-4">{listing.description}</p>
-            <p className="text-lg font-medium">
-              Price:{" "}
-              {listing.discountedPrice && listing.discountedPrice.toFixed(2)}
+            <p className="text-sm font-medium">
+              Price: {listing.price} per night
             </p>
-            {listing.discountedPrice &&
-              listing.discountedPrice < listing.price && (
-                <p className="ml-2 text-gray-500 line-through">
-                  ${listing.price.toFixed(2)}
-                </p>
-              )}
 
             <div className="flex flex-wrap">
               {listing.tags &&
@@ -170,44 +163,12 @@ const SingleListing = () => {
                 ))}
             </div>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-primary hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded active:scale-95 transition duration-150 ease-in-out active:bg-secondary"
               type="submit"
               onClick={() => dispatch(addToCart(listing))}
             >
-              Add to Cart
+              Check availability
             </button>
-            <div>
-              <p className="text-lg font-bold my-2">Reviews:</p>
-              {listing.reviews &&
-                listing.reviews.map((review) => (
-                  <>
-                    <div
-                      key={review.id}
-                      className="mb-4 border-2 border-gray-400 rounded-md"
-                    >
-                      <div className="flex mt-2">
-                        <label className="rating-label mx-auto">
-                          <span className="text-sm font-semibold">
-                            {review.rating}/5
-                          </span>
-                          <input
-                            aria-label={`Rating ${review.rating} out of 5`}
-                            className="rating mx-auto"
-                            max="5"
-                            readOnly
-                            step="0.01"
-                            style={{
-                              "--fill": "#0097a7",
-                              "--value": review.rating,
-                            }}
-                            type="range"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  </>
-                ))}
-            </div>
           </div>
         </div>
 

@@ -62,7 +62,17 @@ function Search() {
       {query.length > 0 && (
         <div className="max-h-80 overflow-y-auto">
           {results.map((listing) => (
-            <Link to={`/listings/${listing.id}`} onClick={emptySearch}>
+            <Link
+              to={`/listings/${listing.id}`}
+              onClick={() => {
+                emptySearch();
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
               <ul
                 className="border rounded-md border-gray-400 mx-auto p-2 m-2 flex-col items-center justify-center bg-white shadow-lg w-[340px] lg:w-[440px] flex-nowrap text-charcoal hover:bg-primary hover:text-white active:bg-secondary active:text-white transition duration-150 ease-in-out "
                 key={listing.id}
