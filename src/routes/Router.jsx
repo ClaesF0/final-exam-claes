@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Listings from "../components/views/Listings";
 import SingleListing from "../components/SingleListing";
+import SignupLoginForm from "../components/views/SignupLogin";
 
 import { useEffect } from "react";
 
@@ -11,7 +12,7 @@ function Router() {
         <Route path="/" element={<Listings />} />
         <Route path="/listings" element={<Listings />} />
         <Route path="/listings/:id" element={<SingleListing />} />
-
+        <Route path="/signuplogin" element={<SignupLoginForm />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </>
