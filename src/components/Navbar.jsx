@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useReducer } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -16,6 +16,8 @@ import userIcon from "../assets/usericon.svg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = !!localStorage.getItem("token");
+  const avatarNonNull = localStorage.getItem("avatar") !== "null";
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -63,7 +65,11 @@ const Navbar = () => {
               <button className=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
                 <img
                   className="h-6 w-6 mx-auto"
-                  src={userIcon}
+                  src={
+                    isLoggedIn && avatarNonNull
+                      ? localStorage.getItem("avatar")
+                      : userIcon
+                  }
                   alt="Your profile"
                 />
               </button>
@@ -76,21 +82,45 @@ const Navbar = () => {
           }`}
         >
           <div className="">
-            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-              Account
-            </div>
-            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-              Bookings
-            </div>
-            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-              Holidaze your home
-            </div>
-            <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-              Hosting pages
-            </div>
-            <div className="p-2 hover:bg-secondary hover:text-primary active:bg-red-500 active:text-white transition duration-150 ease-in-out ">
-              Log out
-            </div>
+            {!isLoggedIn && (
+              <>
+                <Link to={"/signup"}>
+                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                    Sign up
+                  </div>
+                </Link>
+                <Link to={"/login"}>
+                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                    Log in
+                  </div>
+                </Link>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
+                <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                  Account
+                </div>
+                <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                  Bookings
+                </div>
+                <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                  Holidaze your home
+                </div>
+                <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                  Hosting pages
+                </div>
+                <div
+                  onClick={() => {
+                    localStorage.clear();
+                    location.replace("/");
+                  }}
+                  className="p-2 hover:bg-secondary hover:text-primary active:bg-red-500 active:text-white transition duration-150 ease-in-out "
+                >
+                  Log out
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>
