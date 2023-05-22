@@ -16,6 +16,8 @@ import petsIcon from "../assets/pets.svg";
 import breakfastIcon from "../assets/breakfast.svg";
 import guestsIcon from "../assets/guests.svg";
 
+import { BookingDatePicker } from "../store/modules/BookingDatePicker.jsx";
+
 //Calendar-imports
 import DatePicker from "react-datepicker";
 //import { DatePicker } from "@mui/lab";
@@ -122,48 +124,6 @@ const SingleListing = () => {
   }, []);
 
   const [selectedDate, setSelectedDate] = useState(null);
-
-  //  const [bookings, setBookings] = useState([]);
-  //
-  //  useEffect(() => {
-  //    const accessToken = localStorage.getItem("accessToken");
-  //    fetch(
-  //      `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true`,
-  //      {
-  //        headers: {
-  //          Authorization: `Bearer ${accessToken}`,
-  //        },
-  //      }
-  //    )
-  //      .then((response) => response.json())
-  //      .then((data) => {
-  //        console.log("HALLOOO Venue data with bookings:", data);
-  //        // Access bookings information from the data object
-  //        const bookingsData = data.bookings;
-  //        setBookings(bookingsData);
-  //      })
-  //      .catch((error) => {
-  //        console.log(error);
-  //      });
-  //  }, [id]);
-
-  // Get the date ranges for all bookings
-  //const dateRanges = bookings.map((booking) => ({
-  //  from: dayjs(booking.dateFrom).toDate(),
-  //  to: dayjs(booking.dateTo).toDate(),
-  //}));
-  //console.log("dateRanges", dateRanges);
-  //// Merge the date ranges to highlight them on the calendar
-  //const highlightedDates = dateRanges.reduce((accumulator, dateRange) => {
-  //  const { from, to } = dateRange;
-  //  const rangeDates = [];
-  //  let currentDate = dayjs(from);
-  //  while (currentDate.isSame(to, "day") || currentDate.isBefore(to, "day")) {
-  //    rangeDates.push(currentDate.toDate());
-  //    currentDate = currentDate.add(1, "day");
-  //  }
-  //  return [...accumulator, ...rangeDates];
-  //}, []);
 
   return (
     <>
@@ -273,6 +233,10 @@ const SingleListing = () => {
           </div>
         </div>
 
+        <div className="border-2 border-green-500 p-4 m-4">
+          HALLO BOOKINGDATEPICKERJSX <BookingDatePicker /> hallo etter
+        </div>
+
         <div className="border-2 border-red-500 p-4 m-4">
           <h2>Bookings List:</h2>
           <ul>
@@ -280,9 +244,9 @@ const SingleListing = () => {
               <li key={index}>
                 JSON: {JSON.stringify(booking)}
                 <br />
-                Date From: {dayjs(booking.dateFrom).format("YYYY-MM-DD")}
+                Date From: {dayjs(booking.dateFrom).format("DD-MM-YYYY")}
                 <br />
-                Date To: {dayjs(booking.dateTo).format("YYYY-MM-DD")}
+                Date To: {dayjs(booking.dateTo).format("DD-MM-YYYY")}
               </li>
             ))}
           </ul>
@@ -290,6 +254,7 @@ const SingleListing = () => {
           <h2 className="text-red-500 text-xl">DatePicker:</h2>
           <DatePicker
             label="Select a date"
+            placeholderText="Select a date2"
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
             dateFormat={"dd/MM/yyyy"}
