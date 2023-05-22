@@ -93,7 +93,7 @@ export const BookingDatePicker = () => {
         <h2 className="text-red-500 text-xl">DatePicker:</h2>
         <DatePicker
           label="Select a date"
-          placeholderText="Select a date2"
+          placeholderText="Select a date"
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
           dateFormat={"dd/MM/yyyy"}
