@@ -16,13 +16,29 @@ import petsIcon from "../assets/pets.svg";
 import breakfastIcon from "../assets/breakfast.svg";
 import guestsIcon from "../assets/guests.svg";
 
+//Calendar-imports
+import DatePicker from "react-datepicker";
+//import { DatePicker } from "@mui/lab";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs, { Dayjs } from "dayjs";
+import isBetweenPlugin from "dayjs/plugin/isBetween";
+import { styled } from "@mui/material/styles";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { PickersDay } from "@mui/x-date-pickers";
+dayjs.extend(isBetweenPlugin);
+//import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
+
 const SingleListing = () => {
+  //CARDS
   const { id } = useParams();
   const dispatch = useDispatch();
   const { listing } = useSelector((state) => state.listingsReducer);
   const [similarListings, setSimilarListings] = useState([]);
   const [charLimit, setCharLimit] = React.useState(60); // default character limit
   const [showMore, setShowMore] = React.useState(false);
+  //console.log("id FRA SINGLE LISTING", id);
 
   const toggleShowMore = () => setShowMore(!showMore);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -63,6 +79,91 @@ const SingleListing = () => {
       });
   }, [listing]);
   console.log("listing", listing);
+
+  //BOOKING AVAILABLE START
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    fetch(
+      `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Venue data with bookings:", data);
+        const bookingsData = data.bookings;
+        setBookings(bookingsData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
+
+  const dateRanges = bookings.map((booking) => ({
+    from: dayjs(booking.dateFrom).toDate(),
+    to: dayjs(booking.dateTo).toDate(),
+  }));
+  console.log("dateRanges", dateRanges);
+
+  const highlightedDates = dateRanges.reduce((accumulator, dateRange) => {
+    const { from, to } = dateRange;
+    const rangeDates = [];
+    let currentDate = dayjs(from);
+    while (currentDate.isSame(to, "day") || currentDate.isBefore(to, "day")) {
+      rangeDates.push(currentDate.toDate());
+      currentDate = currentDate.add(1, "day");
+    }
+    return [...accumulator, ...rangeDates];
+  }, []);
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  //  const [bookings, setBookings] = useState([]);
+  //
+  //  useEffect(() => {
+  //    const accessToken = localStorage.getItem("accessToken");
+  //    fetch(
+  //      `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true`,
+  //      {
+  //        headers: {
+  //          Authorization: `Bearer ${accessToken}`,
+  //        },
+  //      }
+  //    )
+  //      .then((response) => response.json())
+  //      .then((data) => {
+  //        console.log("HALLOOO Venue data with bookings:", data);
+  //        // Access bookings information from the data object
+  //        const bookingsData = data.bookings;
+  //        setBookings(bookingsData);
+  //      })
+  //      .catch((error) => {
+  //        console.log(error);
+  //      });
+  //  }, [id]);
+
+  // Get the date ranges for all bookings
+  //const dateRanges = bookings.map((booking) => ({
+  //  from: dayjs(booking.dateFrom).toDate(),
+  //  to: dayjs(booking.dateTo).toDate(),
+  //}));
+  //console.log("dateRanges", dateRanges);
+  //// Merge the date ranges to highlight them on the calendar
+  //const highlightedDates = dateRanges.reduce((accumulator, dateRange) => {
+  //  const { from, to } = dateRange;
+  //  const rangeDates = [];
+  //  let currentDate = dayjs(from);
+  //  while (currentDate.isSame(to, "day") || currentDate.isBefore(to, "day")) {
+  //    rangeDates.push(currentDate.toDate());
+  //    currentDate = currentDate.add(1, "day");
+  //  }
+  //  return [...accumulator, ...rangeDates];
+  //}, []);
 
   return (
     <>
@@ -170,6 +271,42 @@ const SingleListing = () => {
               Check availability
             </button>
           </div>
+        </div>
+
+        <div className="border-2 border-red-500 p-4 m-4">
+          <h2>Bookings List:</h2>
+          <ul>
+            {bookings.map((booking, index) => (
+              <li key={index}>
+                JSON: {JSON.stringify(booking)}
+                <br />
+                Date From: {dayjs(booking.dateFrom).format("YYYY-MM-DD")}
+                <br />
+                Date To: {dayjs(booking.dateTo).format("YYYY-MM-DD")}
+              </li>
+            ))}
+          </ul>
+          dateRanges: {JSON.stringify(dateRanges)}
+          <h2 className="text-red-500 text-xl">DatePicker:</h2>
+          <DatePicker
+            label="Select a date"
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat={"dd/MM/yyyy"}
+            minDate={new Date()}
+            className="border-2 border-red-500 p-4 m-4 text-black"
+            filterDate={(date) => {
+              // Check if the date is present in the dateRanges array
+              const isDateDisabled = dateRanges.some((dateRange) => {
+                return (
+                  date >= dayjs(dateRange.from).startOf("day") &&
+                  date <= dayjs(dateRange.to).endOf("day")
+                );
+              });
+              // Return true to disable the date if it is found in dateRanges, false otherwise
+              return !isDateDisabled;
+            }}
+          />
         </div>
 
         {similarListings.length > 0 && (
