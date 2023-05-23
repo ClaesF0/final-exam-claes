@@ -32,7 +32,6 @@ export const fetchListings = () => async (dispatch) => {
       "https://api.noroff.dev/api/v1/holidaze/venues"
     );
     const data = await response.json();
-    console.log("api suksess, her er data", data);
     dispatch(SET_ALL_LISTINGS(data));
   } catch (e) {
     return console.error("error from api call", e.message);

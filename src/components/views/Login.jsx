@@ -46,13 +46,10 @@ const LoginForm = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      console.log("INIT Logging in user:", values);
       axios
         .post("https://api.noroff.dev/api/v1/holidaze/auth/login", values)
         .then((response) => {
           localStorage.clear();
-          console.log("response from login", response);
-          console.log("response.data from login", response.data);
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem(
             "venueManager",

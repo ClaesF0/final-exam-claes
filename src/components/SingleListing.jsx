@@ -40,7 +40,6 @@ const SingleListing = () => {
   const [similarListings, setSimilarListings] = useState([]);
   const [charLimit, setCharLimit] = React.useState(60); // default character limit
   const [showMore, setShowMore] = React.useState(false);
-  //console.log("id FRA SINGLE LISTING", id);
 
   const toggleShowMore = () => setShowMore(!showMore);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -80,7 +79,7 @@ const SingleListing = () => {
         console.log(error);
       });
   }, [listing]);
-  console.log("listing", listing);
+  //
 
   return (
     <>

@@ -46,11 +46,9 @@ const SignupForm = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      console.log("init registering user:", values);
       axios
         .post("https://api.noroff.dev/api/v1/holidaze/auth/register", values)
         .then((response) => {
-          console.log("response from register:", response);
           localStorage.clear();
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem(
