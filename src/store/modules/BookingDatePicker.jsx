@@ -46,15 +46,16 @@ export const BookingDatePicker = () => {
       }
     )
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Venue data with bookings:", data);
-        const bookingsData = data.bookings;
+      .then((venueData) => {
+        console.log("Venue data with bookings:", venueData);
+        const bookingsData = venueData.bookings;
+        console.log("bookingsData", bookingsData);
         setBookings(bookingsData);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
   useEffect(() => {
     const dateRanges = bookings.map((booking) => ({
