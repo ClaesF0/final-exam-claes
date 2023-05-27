@@ -3,6 +3,7 @@ import Listings from "../components/views/Listings";
 import SingleListing from "../components/SingleListing";
 import SignupForm from "../components/views/Signup";
 import Login from "../components/views/Login";
+import UsersProfile from "../components/UsersProfile";
 
 import { useEffect } from "react";
 
@@ -15,6 +16,7 @@ function Router() {
         <Route path="/listings/:id" element={<SingleListing />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profiles/:name" element={<UsersProfile />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </>

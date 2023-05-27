@@ -21,7 +21,7 @@ const Navbar = () => {
   const avatarNonNull = localStorage.getItem("avatar") !== "null";
   const userAvatar = localStorage.getItem("avatar");
   const isManager = localStorage.getItem("venueManager") == "true";
-  const userName = localStorage.getItem("name");
+  const name = localStorage.getItem("name");
   const userEmail = localStorage.getItem("email");
   const accessToken = localStorage.getItem("token");
   console.log(isManager, "isManager");
@@ -75,15 +75,27 @@ const Navbar = () => {
                 </button>
 
                 <button className=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
-                  <img
-                    className="h-6 w-6 mx-auto rounded-full"
-                    src={
-                      isLoggedIn && avatarNonNull
-                        ? localStorage.getItem("avatar")
-                        : userIcon
-                    }
-                    alt="Your profile"
-                  />
+                  {name ? (
+                    <Link to={"/profiles/" + name}>
+                      <img
+                        className="h-6 w-6 mx-auto rounded-full"
+                        src={
+                          isLoggedIn && avatarNonNull
+                            ? localStorage.getItem("avatar")
+                            : userIcon
+                        }
+                        alt={"Your profile" + name}
+                      />
+                    </Link>
+                  ) : (
+                    <Link to="/login/">
+                      <img
+                        className="h-6 w-6 mx-auto rounded-full"
+                        src={userIcon}
+                        alt="Log in"
+                      />
+                    </Link>
+                  )}
                 </button>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const makeBooking = (payload) => {
   return async (dispatch) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "https://api.noroff.dev/api/v1/holidaze/bookings/",
         {
@@ -11,7 +11,7 @@ export const makeBooking = (payload) => {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(payload),
         }
