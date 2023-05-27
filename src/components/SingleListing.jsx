@@ -189,9 +189,7 @@ const SingleListing = () => {
           </div>
         </div>
 
-        <div className="border-2 border-green-500 p-4 m-4">
-          HALLO BOOKINGDATEPICKERJSX <BookingDatePicker /> hallo etter
-        </div>
+        <BookingDatePicker />
 
         {similarListings.length > 0 && (
           <div>

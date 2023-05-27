@@ -76,7 +76,7 @@ const Navbar = () => {
 
                 <button className=" bg-primary border-2 border-white h-[40px] w-[40px] rounded-full active:scale-95 transition duration-150 ease-in-out">
                   <img
-                    className="h-6 w-6 mx-auto"
+                    className="h-6 w-6 mx-auto rounded-full"
                     src={
                       isLoggedIn && avatarNonNull
                         ? localStorage.getItem("avatar")
