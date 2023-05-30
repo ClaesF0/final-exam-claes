@@ -11,6 +11,7 @@ import Listings from "./components/views/Listings";
 import Router from "./routes/Router";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import ChatBot from "./components/ChatBot";
 
 function App({ children }) {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App({ children }) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="App">
         <Navbar />
+        <ChatBot />
         <Router />
       </div>
     </LocalizationProvider>

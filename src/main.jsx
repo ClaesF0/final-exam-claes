@@ -6,14 +6,13 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "./store/store";
 import { createRoot } from "react-dom/client";
-import ChatBot from "./components/ChatBot";
+//import ChatBot from "./components/ChatBot";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ChatBot />
         <App />
       </BrowserRouter>
     </Provider>
