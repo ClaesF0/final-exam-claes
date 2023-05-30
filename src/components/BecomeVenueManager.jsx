@@ -65,6 +65,7 @@ const BecomeVenueManager = () => {
   return (
     <>
       <div>
+        <BecomeVenueManager averageRevenue={averageRevenuePerNight} />
         <div>
           <p className="text-3xl font-bold text-primary mx-auto text-center">
             By hosting you can make an average revenue of{" "}

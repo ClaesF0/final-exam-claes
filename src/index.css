@@ -14,3 +14,11 @@
 p {
   font-family: "Montserrat", sans-serif;
 }
+
+.bg-image {
+  background: url("src/assets/image.psd(2).png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
