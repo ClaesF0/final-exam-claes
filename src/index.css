@@ -16,11 +16,17 @@ p {
 }
 
 .bg-image {
-  background: url("src/assets/image.psd(2).png") no-repeat center center fixed;
+  background-image: url("src/assets/image.psd(2).png");
+  height: 400px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  mask-image: linear-gradient(to bottom, transparent, black);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black);
 }
 
 /* CHat section start */

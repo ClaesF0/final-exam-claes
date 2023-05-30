@@ -85,7 +85,7 @@ function ChatBot() {
             margin: "10px",
           }}
         >
-          <i className="fa fa-comment">CHAT</i>
+          <i className="fa fa-comment">{showChat ? "Exit" : "Chat"}</i>
         </button>
         {showChat && (
           <main className={`chat-main ${showChat ? "block z-20 " : ""}`}>
