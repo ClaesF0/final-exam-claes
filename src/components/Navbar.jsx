@@ -53,12 +53,22 @@ const Navbar = () => {
 
             <Search className="" />
             <div className="ml-auto flex items-center">
-              <p className="w-1/5% text-xs font-bold hidden lg:block whitespace-pre-wrap">
-                Become a Holidaze host
-              </p>
-              <p className="w-1/5% text-sm font-bold flex-wrap lg:hidden">
-                Hosting
-              </p>
+              {isManager ? (
+                <Link to={"/makealisting"}>
+                  <p className="w-1/5% text-xs font-bold lg:block whitespace-pre-wrap">
+                    Your host page
+                  </p>
+                </Link>
+              ) : (
+                <Link to={"/becomevenuemanager"}>
+                  <p className="w-1/5% text-xs font-bold hidden lg:block whitespace-pre-wrap">
+                    Become a Holidaze host
+                  </p>
+                  <p className="w-1/5% text-sm font-bold flex-wrap lg:hidden">
+                    Hosting
+                  </p>
+                </Link>
+              )}
 
               <button className="bg-primary border-2 border-primary h-[40px] w-[40px] rounded-full mx-4 active:scale-95 transition duration-150 ease-in-out">
                 <img className="h-6 w-6 mx-auto" src={moneyBagIcon} alt="" />
