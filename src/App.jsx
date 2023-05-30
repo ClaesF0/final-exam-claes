@@ -1,5 +1,6 @@
 import "./App.css";
 import "./index.css";
+import { Component } from "react";
 import Navbar from "./components/Navbar";
 import { fetchListings } from "./store/modules/listingsReducer";
 import ListingList from "./components/ListingList";

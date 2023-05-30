@@ -1,13 +1,16 @@
+import { Configuration, OpenAIApi } from "openai";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Configuration, OpenAIApi } from "openai";
 import "../../src/index.css";
 
+const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+const organization = import.meta.env.VITE_REACT_APP_ORGANIZATION;
+
 const configuration = new Configuration({
-  organization: "org-sKF7qJZxkZNL071kydqGNLKP",
-  apiKey: "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",
+  organization: organization,
+  apiKey: apiKey,
 });
 
 const openai = new OpenAIApi(configuration);
