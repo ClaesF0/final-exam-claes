@@ -47,12 +47,6 @@ function ChatBot() {
         stop: ["."],
       });
       msgs.push({ role: "Mr Banana", content: response.data.choices[0].text });
-      console.log("msgs", msgs);
-      console.log("response", response);
-      console.log(
-        "response.data.choices[0].text",
-        response.data.choices[0].text
-      );
       setChats(msgs);
       setIsTyping(false);
     } catch (error) {

@@ -30,7 +30,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickersDay } from "@mui/x-date-pickers";
 dayjs.extend(isBetweenPlugin);
-//import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 
 const SingleListing = () => {
   //CARDS
@@ -38,7 +37,7 @@ const SingleListing = () => {
   const dispatch = useDispatch();
   const { listing } = useSelector((state) => state.listingsReducer);
   const [similarListings, setSimilarListings] = useState([]);
-  const [charLimit, setCharLimit] = React.useState(60); // default character limit
+  const [charLimit, setCharLimit] = React.useState(60);
   const [showMore, setShowMore] = React.useState(false);
 
   const toggleShowMore = () => setShowMore(!showMore);
@@ -53,17 +52,14 @@ const SingleListing = () => {
       .then((response) => response.json())
       .then((data) => {
         const filteredListings = data.filter((listing) => {
-          //calculate the price difference, and set the min and max price, so the visitor can see similar listings
           const priceDifference = listing.price * 0.1;
           const minPrice = listing.price - priceDifference;
           const maxPrice = listing.price + priceDifference;
 
-          //the same for the maxGuests key
           const maxGuestsDifference = Math.round(listing.maxGuests * 0.1);
           const minGuests = listing.maxGuests - maxGuestsDifference;
           const maxGuests = listing.maxGuests + maxGuestsDifference;
 
-          //check the stuff that would meet the aforementioned conditions
           return (
             listing.id !== id &&
             listing.price >= minPrice &&

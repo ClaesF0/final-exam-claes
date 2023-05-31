@@ -7,23 +7,18 @@ const BecomeVenueManager = () => {
   const [averageRevenuePerNight, setAverageRevenuePerNight] = useState(0);
 
   useEffect(() => {
-    // Check if the user is logged in
     const token = localStorage.getItem("token");
     const name = localStorage.getItem("name");
     const venueManager = localStorage.getItem("venueManager");
     setIsLoggedIn(!!token);
 
-    // Check if the user is already a venue manager
     setIsVenueManager(venueManager === "true");
 
-    // Calculate the average revenue per night
     calculateAverageRevenuePerNight();
   }, []);
 
-  // Calculate the average revenue per night
   async function calculateAverageRevenuePerNight() {
     try {
-      // Make an API call to retrieve all venues
       const response = await fetch(
         "https://api.noroff.dev/api/v1/holidaze/venues",
         {
@@ -35,10 +30,8 @@ const BecomeVenueManager = () => {
       );
 
       if (response.ok) {
-        console.log("Successfully fetched venues in BecomeVenueManager");
         const venues = await response.json();
 
-        // Perform the calculation based on the retrieved venues
         let totalMaxGuests = 0;
         let totalPrice = 0;
         let totalPriceWithoutOneStupidListingFor100000000 = 0;
@@ -52,8 +45,7 @@ const BecomeVenueManager = () => {
 
         const averageRevenue =
           totalPriceWithoutOneStupidListingFor100000000 / totalMaxGuests;
-        console.log("averageRevenue pr guest", averageRevenue);
-        setAverageRevenuePerNight(averageRevenue.toFixed()); // Update the state
+        setAverageRevenuePerNight(averageRevenue.toFixed());
       } else {
         console.error("Failed to fetch venues");
       }
@@ -74,9 +66,7 @@ const BecomeVenueManager = () => {
         </div>
       </div>
       {isLoggedIn ? (
-        // If the user is logged in
         isVenueManager ? (
-          // If the user is already a venue manager
           <div>
             <h3>You are signed up a Venue Manager.</h3>
             <Link to="/makealisting">
@@ -86,7 +76,6 @@ const BecomeVenueManager = () => {
             </Link>
           </div>
         ) : (
-          // If the user is not a venue manager
           <div>
             <button className="mx-auto rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
               Become a Venue Manager
@@ -94,7 +83,6 @@ const BecomeVenueManager = () => {
           </div>
         )
       ) : (
-        // If the user is not logged in
         <div>
           <h3>Please log in to become a Venue Manager.</h3>
           <Link to="/login">Log In</Link>

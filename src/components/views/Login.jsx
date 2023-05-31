@@ -5,10 +5,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-  //name: Yup.string()
-  //  .required()
-  //  .matches(/^[a-zæøå0-9_]+$/i, "Invalid symbol detected")
-  //  .min(3, "Name must be at least 3 characters"),
   password: Yup.string()
     .required()
     .matches(/^[a-zæøå0-9]+$/i, "Invalid symbol detected")
@@ -20,10 +16,6 @@ const validationSchema = Yup.object().shape({
       "Invalid email domain. Must be @stud.noroff.no or @noroff.no"
     )
     .required(),
-  //avatarUrl: Yup.string().url("Invalid URL"),
-  //confirmPassword: Yup.string()
-  //  .oneOf([Yup.ref("password"), null], "Passwords must match")
-  //  .required("Please confirm your password"),
 });
 
 const LoginForm = () => {
@@ -37,11 +29,8 @@ const LoginForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      // name: "",
       password: "",
       email: "",
-      // avatarUrl: "",
-      //  venueManager: false,
     },
     validationSchema: validationSchema,
 
@@ -151,7 +140,7 @@ const LoginForm = () => {
                   </label>
                   <div className="mt-2.5">
                     <input
-                      type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                      type={showPassword ? "text" : "password"}
                       password="password"
                       placeholder="Password"
                       onChange={formik.handleChange}
@@ -161,7 +150,7 @@ const LoginForm = () => {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on button click
+                      onClick={() => setShowPassword(!showPassword)}
                       className="text-primary mt-1 text-sm"
                     >
                       {showPassword ? "Hide" : "Show"} password
@@ -185,7 +174,7 @@ const LoginForm = () => {
                   </label>
                   <div className="mt-2.5">
                     <input
-                      type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                      type={showPassword ? "text" : "password"}
                       id="confirmPassword"
                       name="confirmPassword"
                       placeholder="Repeat password"
@@ -196,7 +185,7 @@ const LoginForm = () => {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on button click
+                      onClick={() => setShowPassword(!showPassword)}
                       className="text-primary mt-1 text-sm"
                     >
                       {showPassword ? "Hide" : "Show"} password

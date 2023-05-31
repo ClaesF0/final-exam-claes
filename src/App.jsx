@@ -15,8 +15,6 @@ import ChatBot from "./components/ChatBot";
 
 function App({ children }) {
   const dispatch = useDispatch();
-  //const {listings} = useSelector((state) => state.listingsReducer);
-  //console.log("listings",listings)
   useEffect(() => {
     dispatch(fetchListings());
   }, [dispatch]);

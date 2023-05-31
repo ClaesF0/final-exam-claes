@@ -11,18 +11,16 @@ const UsersProfile = () => {
   const venueManager = localStorage.getItem("venueManager");
   const [newProfilePicture, setNewProfilePicture] = useState("");
   const dispatch = useDispatch();
-  console.log("venueManager ER HER ", venueManager);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Dispatch the action to update the profile picture with the new URL
+
     dispatch(updateProfilePicture(newProfilePicture));
-    // Clear the input field
+
     setNewProfilePicture("");
   };
 
   useEffect(() => {
-    // Fetch user's profile data
     const fetchUserProfile = async () => {
       try {
         const response = await fetch(
@@ -44,11 +42,8 @@ const UsersProfile = () => {
       }
     };
 
-    // Fetch user's upcoming bookings
     const fetchUserBookings = async () => {
       try {
-        // Make an authenticated request to the bookings endpoint
-        // and pass the necessary authentication headers or access token
         const response = await fetch(
           "https://api.noroff.dev/api/v1/holidaze/profiles/" +
             name +
@@ -67,14 +62,12 @@ const UsersProfile = () => {
       }
     };
 
-    // Fetch user profile and bookings on component mount
     fetchUserProfile();
     fetchUserBookings();
   }, []);
 
   const handleBecomeVenueManager = async () => {
     try {
-      // Make a POST request to update the venueManager value
       const response = await fetch(
         "https://api.noroff.dev/api/v1/holidaze/profiles/" + name,
         {
@@ -89,9 +82,7 @@ const UsersProfile = () => {
         }
       );
 
-      // Check if the request was successful
       if (response.ok) {
-        // Update the profile state with the new venueManager value
         setProfile((prevProfile) => ({
           ...prevProfile,
           venueManager: true,
@@ -105,9 +96,7 @@ const UsersProfile = () => {
   };
 
   const updateProfilePicture = async (imageUrl) => {
-    console.log("imageUrl ", imageUrl);
     try {
-      // Make a PUT request to update the profile picture URL
       const response = await fetch(
         "https://api.noroff.dev/api/v1/holidaze/profiles/" + name,
         {
@@ -126,13 +115,12 @@ const UsersProfile = () => {
         }
       );
 
-      // Check if the request was successful
       if (response.ok) {
         alert("Profile picture updated successfully");
-        localStorage.setItem("avatar", imageUrl); // Update the avatar in localStorage
+        localStorage.setItem("avatar", imageUrl);
         setProfile((prevProfile) => ({
           ...prevProfile,
-          avatar: imageUrl, // Update the avatar in the profile state
+          avatar: imageUrl,
         }));
       } else {
         alert("Failed to update profile picture");
@@ -142,8 +130,7 @@ const UsersProfile = () => {
       console.error("Error updating profile picture:", error);
     }
   };
-  console.log("profile ER HER ", profile);
-  console.log("bookings ER HER ", bookings);
+
   return (
     <div className="w-full sm:w-4/5 mx-auto px-2 ">
       {profile && (
@@ -188,7 +175,6 @@ const UsersProfile = () => {
                 <p>Date From: {booking.dateFrom}</p>
                 <p>Date To: {booking.dateTo}</p>
                 <p>Guests: {booking.guests}</p>
-                {/* Additional booking details */}
               </li>
             ))}
           </ul>

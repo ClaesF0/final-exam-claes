@@ -153,7 +153,7 @@ const SignupForm = () => {
                 </label>
                 <div className="mt-2.5">
                   <input
-                    type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                    type={showPassword ? "text" : "password"}
                     password="password"
                     placeholder="Password"
                     onChange={formik.handleChange}
@@ -163,7 +163,7 @@ const SignupForm = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on button click
+                    onClick={() => setShowPassword(!showPassword)}
                     className="text-primary mt-1 text-sm"
                   >
                     {showPassword ? "Hide" : "Show"} password
@@ -187,7 +187,7 @@ const SignupForm = () => {
                 </label>
                 <div className="mt-2.5">
                   <input
-                    type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                    type={showPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Repeat password"
@@ -198,7 +198,7 @@ const SignupForm = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on button click
+                    onClick={() => setShowPassword(!showPassword)}
                     className="text-primary mt-1 text-sm"
                   >
                     {showPassword ? "Hide" : "Show"} password

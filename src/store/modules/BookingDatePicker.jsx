@@ -192,7 +192,6 @@ export const BookingDatePicker = () => {
             minDate={new Date()}
             className="border-2 border-red-500 p-4 text-black"
             filterDate={(date) => {
-              // Check if the date is present in the dateRanges array
               const isDateDisabled = dateRanges.some((dateRange) => {
                 return (
                   date >= dayjs(dateRange.from).startOf("day") &&

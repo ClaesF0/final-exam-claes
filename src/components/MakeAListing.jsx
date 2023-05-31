@@ -105,10 +105,8 @@ const MakeAListing = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      // Convert media string to an array by splitting based on comma delimiter
       const mediaArray = values.media.split(",");
 
-      // Update the media field in the values object with the array
       values.media = mediaArray;
       axios
         .post("https://api.noroff.dev/api/v1/holidaze/venues", values, {
@@ -119,14 +117,10 @@ const MakeAListing = () => {
         })
 
         .then((response) => {
-          // Handle successful creation
           console.log("Venue created:", response.data);
-          // Reset the form or redirect to a success page
         })
         .catch((error) => {
-          // Handle error
           console.log("Error creating venue:", error);
-          // Show an error message to the user
         });
     },
   });
@@ -147,20 +141,6 @@ const MakeAListing = () => {
       });
     }
   }, [mediaInputRef]);
-
-  //function transformer(value) {
-  //  return value
-  //    .replace(/\\"/g, "") //removes the backslashes.
-  //    .replace(/"value:":/g, "HALLO") //removes the "value": part.
-  //    .replace(/\["/g, '{ "') //replaces [" with { ".
-  //    .replace(/"\]/g, '" }') //replaces "] with " }.
-  //    .replace(/},{/g, "}, {"); //adds a comma between objects.
-  //}
-  //
-  //const inputString = formik.values.media;
-  //
-  //const outputString = transformer(inputString);
-  //console.log(outputString);
 
   return (
     <>

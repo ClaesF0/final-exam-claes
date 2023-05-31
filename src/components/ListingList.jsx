@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ListingList = ({ listings }) => {
-  const [charLimit, setCharLimit] = React.useState(60); // default character limit
+  const [charLimit, setCharLimit] = React.useState(60);
   const [showMore, setShowMore] = React.useState(false);
 
   const toggleShowMore = () => setShowMore(!showMore);

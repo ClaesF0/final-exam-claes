@@ -24,7 +24,6 @@ const Navbar = () => {
   const name = localStorage.getItem("name");
   const userEmail = localStorage.getItem("email");
   const accessToken = localStorage.getItem("token");
-  console.log(isManager, "isManager");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
