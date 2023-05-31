@@ -11,10 +11,9 @@ const BecomeVenueManager = () => {
     const name = localStorage.getItem("name");
     const venueManager = localStorage.getItem("venueManager");
     setIsLoggedIn(!!token);
-
     setIsVenueManager(venueManager === "true");
 
-    calculateAverageRevenuePerNight();
+    calculateAverageRevenuePerNight(); // Call the function here
   }, []);
 
   async function calculateAverageRevenuePerNight() {
@@ -57,10 +56,10 @@ const BecomeVenueManager = () => {
   return (
     <>
       <div>
-        <BecomeVenueManager averageRevenue={averageRevenuePerNight} />
+        <h1>Average Revenue: {averageRevenuePerNight}</h1>
         <div>
           <p className="text-3xl font-bold text-primary mx-auto text-center">
-            By hosting you can make an average revenue of{" "}
+            By hosting, you can make an average revenue of{" "}
             {averageRevenuePerNight} per guest staying a night.
           </p>
         </div>
@@ -68,7 +67,7 @@ const BecomeVenueManager = () => {
       {isLoggedIn ? (
         isVenueManager ? (
           <div>
-            <h3>You are signed up a Venue Manager.</h3>
+            <h3>You are signed up as a Venue Manager.</h3>
             <Link to="/makealisting">
               <button className="mx-auto rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
                 Get started with your listings!
