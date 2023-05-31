@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { fetchOneListing } from "../store/modules/listingsReducer";
+import {
+  fetchOneListing,
+  updateListing,
+} from "../store/modules/listingsReducer";
 import { Link } from "react-router-dom";
 import React, { useRef } from "react";
 import {
@@ -29,50 +32,23 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Tagify from "@yaireo/tagify";
 import "@yaireo/tagify/dist/tagify.css";
-
 dayjs.extend(isBetweenPlugin);
 
-const TagInput = ({ placeholder, onTagsChange }) => {
-  const inputRef = useRef(null);
-  const tagifyRef = useRef(null);
-
-  useEffect(() => {
-    //const mediaValues = Array.isArray(formik.values.media)
-    //  ? formik.values.media.join(", ")
-    //  : "";
-    if (inputRef.current) {
-      tagifyRef.current = new Tagify(inputRef.current, {
-        whitelist: [{}],
-        enforceWhitelist: true,
-        dropdown: {
-          enabled: 0,
-        },
-        callbacks: {
-          add: onTagsChange,
-          remove: onTagsChange,
-        },
-      });
-    }
-  }, [onTagsChange]);
-  return (
-    <input
-      ref={inputRef}
-      type="text"
-      placeholder={placeholder}
-      className="tagify-input"
-    />
-  );
-};
-
 const validationSchema = Yup.object().shape({
-  name: Yup.string().optional().min(3, "Name must be at least 3 characters"),
-  description: Yup.string().optional(),
-  price: Yup.number().optional().positive("Price is not a negative number"),
-  maxGuests: Yup.number().optional().integer("This number must be an integer"),
+  name: Yup.string()
+    .required("Name is required")
+    .min(3, "Name must be at least 3 characters"),
+  description: Yup.string().required("Description is required"),
+  price: Yup.number()
+    .required("Price is required")
+    .positive("Price is not a negative number"),
+  maxGuests: Yup.number()
+    .required("Number of guests is required")
+    .integer("This number must be an integer"),
   rating: Yup.number()
     .optional()
     .min(0, "Rating must be a non-negative number"),
-  //media: Yup.string().optional(),
+  media: Yup.string().optional(),
   meta: Yup.object()
     .shape({
       wifi: Yup.boolean().optional(),
@@ -97,8 +73,9 @@ const validationSchema = Yup.object().shape({
 const EditAListing = () => {
   //CARDS
   const { id } = useParams();
+
   const dispatch = useDispatch();
-  const { listing } = useSelector((state) => state.listingsReducer);
+  const listing = useSelector((state) => state.listingsReducer.listing);
 
   const [charLimit, setCharLimit] = React.useState(60); // default character limit
   const [showMore, setShowMore] = React.useState(false);
@@ -106,45 +83,78 @@ const EditAListing = () => {
   const toggleShowMore = () => setShowMore(!showMore);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  useEffect(() => {
-    dispatch(fetchOneListing(id));
-  }, [dispatch, id]);
+  const TagInput = ({ placeholder, onTagsChange }) => {
+    const inputRef = useRef(null);
+    const tagifyRef = useRef(null);
 
-  useEffect(() => {
-    fetch("https://api.noroff.dev/api/v1/holidaze/venues/" + id)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("DATA FROM EDIT LISTING", data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [listing]);
+    useEffect(() => {
+      dispatch(fetchOneListing(id));
+    }, [dispatch, id]);
+
+    //useEffect(() => {
+    //  fetch("https://api.noroff.dev/api/v1/holidaze/venues/" + id)
+    //    .then((response) => response.json())
+    //    .then((data) => {
+    //      console.log("DATA FROM EDIT LISTING", data);
+    //    })
+    //    .catch((error) => {
+    //      console.log(error);
+    //    });
+    //}, [listing]);
+
+    useEffect(() => {
+      const mediaValues = Array.isArray(formik.values.media)
+        ? formik.values.media.join(", ")
+        : "";
+      if (inputRef.current) {
+        tagifyRef.current = new Tagify(inputRef.current, {
+          whitelist: [{}],
+          enforceWhitelist: true,
+          dropdown: {
+            enabled: 0,
+          },
+          callbacks: {
+            add: onTagsChange,
+            remove: onTagsChange,
+          },
+        });
+      }
+    }, [onTagsChange]);
+    return (
+      <input
+        ref={inputRef}
+        type="text"
+        placeholder={placeholder}
+        className="tagify-input"
+      />
+    );
+  };
+
   //
   const token = localStorage.getItem("token");
   const mediaInputRef = useRef(null);
   const formik = useFormik({
     initialValues: {
-      name: listing.name,
-      description: listing.description,
-      price: listing.price,
-      maxGuests: listing.maxGuests,
-      rating: listing.rating,
-      media: listing.media,
+      name: listing?.name || "",
+      description: listing?.description || "",
+      price: listing?.price || 1,
+      maxGuests: listing?.maxGuests || 1,
+      rating: listing?.rating || 2.5,
+      media: listing?.media,
       meta: {
-        wifi: listing.meta?.wifi,
-        parking: listing.meta?.parking,
-        breakfast: listing.meta?.breakfast,
-        pets: listing.meta?.pets,
+        wifi: listing?.meta?.wifi || false,
+        parking: listing?.meta?.parking || false,
+        breakfast: listing?.meta?.breakfast || false,
+        pets: listing?.meta?.pets || false,
       },
       location: {
-        address: listing.location?.address,
-        city: listing.location?.city,
-        zip: listing.location?.zip,
-        country: listing.location?.country,
-        continent: listing.location?.continent,
-        lat: listing.location?.lat,
-        lng: listing.location?.lng,
+        address: listing?.location?.address || "",
+        city: listing?.location?.city || "",
+        zip: listing?.location?.zip || "",
+        country: listing?.location?.country || "",
+        continent: listing?.location?.continent || "",
+        lat: listing?.location?.lat || "",
+        lng: listing?.location?.lng || "",
       },
     },
     validationSchema: validationSchema,
@@ -164,6 +174,7 @@ const EditAListing = () => {
         },
         data: values,
       };
+      console.log("values from edit listing", values);
 
       axios
         .request(options)
@@ -180,59 +191,7 @@ const EditAListing = () => {
     },
   });
 
-  //const formik = useFormik({
-  //  initialValues: {
-  //    name: listing.name,
-  //    description: listing.description,
-  //    price: listing.price,
-  //    maxGuests: listing.maxGuests,
-  //    rating: listing.rating,
-  //    media: listing.media || [[]],
-  //    meta: {
-  //      wifi: listing.meta?.wifi,
-  //      parking: listing.meta?.parking,
-  //      breakfast: listing.meta?.breakfast,
-  //      pets: listing.meta?.pets,
-  //    },
-  //    location: {
-  //      address: listing.location?.address,
-  //      city: listing.location?.city,
-  //      zip: listing.location?.zip,
-  //      country: listing.location?.country,
-  //      continent: listing.location?.continent,
-  //      lat: listing.location?.lat,
-  //      lng: listing.location?.lng,
-  //    },
-  //  },
-  //  validationSchema: validationSchema,
-  //
-  //  onSubmit: (values) => {
-  //    // Convert media string to an array by splitting based on comma delimiter
-  //    const mediaArray = values.media.split(",");
-  //
-  //    // Update the media field in the values object with the array
-  //    values.media = mediaArray;
-  //    axios
-  //      .put("https://api.noroff.dev/api/v1/holidaze/venues" + id, values, {
-  //        headers: {
-  //          "Content-Type": "application/json",
-  //          Authorization: `Bearer ${token}`,
-  //        },
-  //      })
-  //
-  //      .then((response) => {
-  //        // Handle successful creation
-  //        console.log("SUKSESS Venue updated:", response.data);
-  //        // Reset the form or redirect to a success page
-  //      })
-  //      .catch((error) => {
-  //        // Handle error
-  //        console.log("Error updating venue:", error);
-  //        // Show an error message to the user
-  //      });
-  //  },
-  //});
-  console.log("listing", listing);
+  console.log("listing in bottom of code", listing);
   console.log("listing.description", listing.description);
   return (
     <>
@@ -409,7 +368,7 @@ const EditAListing = () => {
                   name="price"
                   placeholder={listing.price}
                   initialValues={listing.price}
-                  min="0"
+                  min="1"
                   step="100"
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-2 py-2 px-2 border-charcoal rounded-md"
                   onChange={formik.handleChange}
@@ -744,7 +703,10 @@ const EditAListing = () => {
 
             <div>
               <button
-                onClick={console.log(formik.values)}
+                onClick={console.log(
+                  "this is formik.values from submitbtn",
+                  formik.values
+                )}
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >

@@ -238,7 +238,7 @@ export const BookingDatePicker = () => {
           type="submit"
           onClick={() => handleMakeBooking(id)}
         >
-          NEW BTN Make booking
+          Make booking
         </button>
       </div>
     </div>

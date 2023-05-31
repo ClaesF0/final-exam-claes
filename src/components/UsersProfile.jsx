@@ -37,6 +37,7 @@ const UsersProfile = () => {
         const data = await response.json();
         setProfile(data);
         setVenues(data.venues);
+        console.log("data from profile fetch in profilepage", data);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
@@ -117,6 +118,7 @@ const UsersProfile = () => {
 
       if (response.ok) {
         alert("Profile picture updated successfully");
+
         localStorage.setItem("avatar", imageUrl);
         setProfile((prevProfile) => ({
           ...prevProfile,

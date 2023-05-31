@@ -39,6 +39,7 @@ const SingleListing = () => {
   const [similarListings, setSimilarListings] = useState([]);
   const [charLimit, setCharLimit] = React.useState(60);
   const [showMore, setShowMore] = React.useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const toggleShowMore = () => setShowMore(!showMore);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -178,14 +179,14 @@ const SingleListing = () => {
             <button
               className="bg-primary hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded active:scale-95 transition duration-150 ease-in-out active:bg-secondary"
               type="submit"
-              onClick={() => dispatch(addToCart(listing))}
+              onClick={() => setShowDatePicker(true)}
             >
               Check availability
             </button>
           </div>
         </div>
 
-        <BookingDatePicker />
+        {showDatePicker && <BookingDatePicker />}
 
         {similarListings.length > 0 && (
           <div>

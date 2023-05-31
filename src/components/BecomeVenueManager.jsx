@@ -58,7 +58,7 @@ const BecomeVenueManager = () => {
       <div className="bg-container">
         <div className="bg-image"></div>
         <div className="CTA-overlay">
-          <p className="text-3xl text-primary font-bold mx-auto ">
+          <p className="text-3xl text-charcoal font-bold mx-auto ">
             By hosting, you can make an average revenue of{" "}
             {averageRevenuePerNight} per guest staying a night.
           </p>
