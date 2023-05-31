@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const UsersProfile = () => {
   const [profile, setProfile] = useState(null);
   const [bookings, setBookings] = useState([]);
+  const [venues, setVenues] = useState([]);
   const token = localStorage.getItem("token");
   const name = localStorage.getItem("name");
   const venueManager = localStorage.getItem("venueManager");
@@ -23,8 +25,6 @@ const UsersProfile = () => {
     // Fetch user's profile data
     const fetchUserProfile = async () => {
       try {
-        // Make an authenticated request to the profile endpoint
-        // and pass the necessary authentication headers or access token
         const response = await fetch(
           "https://api.noroff.dev/api/v1/holidaze/profiles/" +
             name +
@@ -38,6 +38,7 @@ const UsersProfile = () => {
         );
         const data = await response.json();
         setProfile(data);
+        setVenues(data.venues);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
@@ -188,6 +189,37 @@ const UsersProfile = () => {
                 <p>Date To: {booking.dateTo}</p>
                 <p>Guests: {booking.guests}</p>
                 {/* Additional booking details */}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {venues.length > 0 && (
+        <div>
+          <p className="text-charcoal text-lg font-semibold">
+            Your {venues.length} Venues:
+          </p>
+          <ul>
+            {venues.map((venue) => (
+              <li key={venue.id}>
+                <Link to={`/listings/${venue.id}`}>
+                  <div className="border-2 border-primary my-2">
+                    <p>Name: {venue.name}</p>
+                    <p>Email: {venue.email}</p>
+                    <p>Address: {venue.address}</p>
+                    <p>Price: {venue.price}</p>
+                    <p>Max Guests: {venue.maxGuests}</p>
+                    <Link to={`/editlisting/${venue.id}`}>
+                      <button
+                        type=""
+                        className="mx-auto rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                      >
+                        Edit Listing
+                      </button>
+                    </Link>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

@@ -133,18 +133,30 @@ const Navbar = () => {
               )}
               {isLoggedIn && (
                 <>
-                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-                    Account
-                  </div>
-                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-                    Bookings
-                  </div>
-                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-                    Holidaze your home
-                  </div>
-                  <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
-                    Hosting pages
-                  </div>
+                  <Link to={"/profiles/" + name}>
+                    <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                      Account
+                    </div>
+                  </Link>
+                  <Link to={"/profiles/" + name}>
+                    <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                      Bookings
+                    </div>
+                  </Link>
+
+                  {isManager ? (
+                    <Link to={"/makealisting"}>
+                      <div className=" p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                        Your host page
+                      </div>
+                    </Link>
+                  ) : (
+                    <Link to={"/becomevenuemanager"}>
+                      <p className="p-2 border-b border-primary hover:bg-primary hover:text-white active:bg-secondary transition duration-150 ease-in-out">
+                        Holidaze your home
+                      </p>
+                    </Link>
+                  )}
                   <div
                     onClick={() => {
                       localStorage.clear();

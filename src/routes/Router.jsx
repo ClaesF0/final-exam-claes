@@ -6,6 +6,7 @@ import Login from "../components/views/Login";
 import UsersProfile from "../components/UsersProfile";
 import BecomeVenueManager from "../components/BecomeVenueManager";
 import MakeAListing from "../components/MakeAListing";
+import EditAListing from "../components/EditAListing";
 
 import { useEffect } from "react";
 
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/profiles/:name" element={<UsersProfile />} />
         <Route path="/becomevenuemanager" element={<BecomeVenueManager />} />
         <Route path="/makealisting" element={<MakeAListing />} />
+        <Route path="/editlisting/:id" element={<EditAListing />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </>
