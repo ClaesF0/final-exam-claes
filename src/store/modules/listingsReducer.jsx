@@ -120,7 +120,7 @@ export const updateListing = (id, listingData) => async (dispatch) => {
     const data = await response.json();
     console.log(data);
     dispatch(SET_UPDATE_LISTING(data));
-    window.location.href = `/listings/${id}`;
+    //window.location.href = `/listings/${id}`;
   } catch (e) {
     console.error(`REDUCER Failed to update listing ${id}`, e);
   }

@@ -34,13 +34,9 @@ dayjs.extend(isBetweenPlugin);
 //SØPPEL SLUTT
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Name is required")
-    .min(3, "Name must be at least 3 characters"),
-  description: Yup.string().required("Description is required"),
-  price: Yup.number()
-    .required("Price is required")
-    .positive("Price is not a negative number"),
+  name: Yup.string().optional().min(3, "Name must be at least 3 characters"),
+  description: Yup.string().optional(),
+  price: Yup.number().optional().positive("Price is not a negative number"),
   maxGuests: Yup.number()
     .required("Number of guests is required")
     .integer("This number must be an integer"),
@@ -77,19 +73,60 @@ function EditAListing() {
 
   useEffect(() => {
     dispatch(fetchOneListing(id)); // Fetch the listing with the specified id
-  }, [dispatch, id]);
+  }, []); //[dispatch, id]);
   console.log("shit that updates every key press", listing);
 
   const mediaInputRef = useRef(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const TagInput = ({ placeholder, onTagsChange }) => {
+    const inputRef = useRef(null);
+    const tagifyRef = useRef(null);
+
+    useEffect(() => {
+      dispatch(fetchOneListing(id));
+    }, [dispatch, id]);
+
+    useEffect(() => {
+      //const mediaValues = Array.isArray(formik.values.media)
+      //  ? formik.values.media.join(", ")
+      //  : "";
+      if (inputRef.current) {
+        tagifyRef.current = new Tagify(inputRef.current, {
+          whitelist: [{}],
+          enforceWhitelist: true,
+          dropdown: {
+            enabled: 0,
+          },
+          callbacks: {
+            add: onTagsChange,
+            remove: onTagsChange,
+          },
+        });
+      }
+    }, [onTagsChange]);
+
+    return (
+      <input
+        ref={inputRef}
+        type="text"
+        placeholder={placeholder}
+        className="tagify-input"
+      />
+    );
+  };
+
+  const token = localStorage.getItem("token");
+  //const mediaInputRef = useRef(null);
+
   const formik = useFormik({
     initialValues: {
       name: listing?.name || "",
       description: listing?.description || "",
-      price: listing?.price || 1,
-      maxGuests: listing?.maxGuests || 1,
-      rating: listing?.rating || 2.5,
-      media: listing?.media,
+      price: listing?.price || "",
+      maxGuests: listing?.maxGuests || "",
+      rating: listing?.rating || "",
+      media: listing?.media || "",
       meta: {
         wifi: listing?.meta?.wifi || false,
         parking: listing?.meta?.parking || false,
@@ -109,6 +146,7 @@ function EditAListing() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("VALUES", values);
+      console.log("formik", formik);
       const newValues = {
         ...values,
         media: values.media.split(","),
@@ -120,6 +158,16 @@ function EditAListing() {
 
   const handleUpdateListing = () => {
     // Implement your logic for updating the listing
+    onSubmit: (values) => {
+      console.log("VALUES", values);
+      console.log("formik", formik);
+      const newValues = {
+        ...values,
+        media: values.media.split(","),
+      };
+      console.log("NEW VALUES", newValues);
+      dispatch(updateListing(id, newValues, token));
+    };
     const updatedListingData = {
       // Provide the updated data for the listing
       // Example: title: "Updated Title", description: "Updated Description"
@@ -141,9 +189,6 @@ function EditAListing() {
   return (
     <>
       <div>
-        <button className="p-1 bg-red-500" onClick={handleUpdateListing}>
-          Update Listing
-        </button>
         <div className="container mx-auto flex flex-col md:flex-row px-2 ">
           <div className="w-full md:w-3/4 lg:w-1/2  md:mb-0 mx-auto">
             <img
@@ -233,9 +278,12 @@ function EditAListing() {
       {listing.location && (
         <div>
           <form
-            onSubmit={formik.handleSubmit}
+            onSubmit={() => handleUpdateListing(formik.values)}
             className="my-2 grid grid-cols-1 gap-y-6 gap-x-8 max-w-[800px] mx-auto px-2 "
           >
+            <button className="p-1 bg-red-500" onClick={handleUpdateListing}>
+              Update Listing
+            </button>
             <div>
               <label
                 htmlFor="name"
