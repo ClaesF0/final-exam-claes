@@ -8,6 +8,9 @@ const listingsSlice = createSlice({
     allListings: [],
     listing: {},
     total: 0,
+    createListing: null,
+    deleteListing: null,
+    updateListing: null,
   },
   reducers: {
     SET_ALL_LISTINGS: (state, action) => {

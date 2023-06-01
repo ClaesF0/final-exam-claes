@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import listingsReducer from "./modules/listingsReducer";
+import listingsReducer, { fetchListings } from "./modules/listingsReducer";
 
 const reducer = combineReducers({
   listingsReducer,
@@ -14,7 +14,7 @@ const store = configureStore({
 //});
 
 // Fetch initial listings data on app load
-//store.dispatch(fetchListings());
+store.dispatch(fetchListings());
 
 export default store;
 //export default index;
