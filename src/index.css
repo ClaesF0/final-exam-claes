@@ -20,7 +20,8 @@ p {
 }
 
 .bg-image {
-  background-image: url("src/assets/image.psd(2).png");
+  /*background-image: url("src/assets/image.psd(2).png");
+  bgimg DYNAMIC IMPORTED IN Listings,jsx */
   height: 400px;
   background-repeat: no-repeat;
   background-position: center center;

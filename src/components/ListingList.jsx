@@ -1,6 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import guestIcon from "../assets/guests.svg";
+import petsIcon from "../assets/pets.svg";
+import parkingIcon from "../assets/parking.svg";
+import wifiIcon from "../assets/wifi.svg";
+import breakfastIcon from "../assets/breakfast.svg";
 
 const ListingList = ({ listings }) => {
   const [charLimit, setCharLimit] = React.useState(60);
@@ -86,35 +91,35 @@ const ListingList = ({ listings }) => {
                   {listing.meta.parking && (
                     <img
                       className="w-5 h-5 rounded-lg m-1"
-                      src="src/assets/parking.svg"
+                      src={parkingIcon}
                       alt="Parking possibilities"
                     />
                   )}
                   {listing.meta.wifi && (
                     <img
                       className="w-5 h-5 rounded-lg m-1"
-                      src="src/assets/wifi.svg"
+                      src={wifiIcon}
                       alt="Wifi access"
                     />
                   )}
                   {listing.meta.pets && (
                     <img
                       className="w-5 h-5 rounded-lg m-1"
-                      src="src/assets/pets.svg"
+                      src={petsIcon}
                       alt="Pet-friendly"
                     />
                   )}
                   {listing.meta.breakfast && (
                     <img
                       className="w-5 h-5 rounded-lg m-1"
-                      src="src/assets/breakfast.svg"
+                      src={breakfastIcon}
                       alt="Breakfast included"
                     />
                   )}
                   <div className="inline-flex ml-auto">
                     <img
                       className="w-5 h-5 rounded-full m-1"
-                      src="src/assets/guests.svg"
+                      src={guestIcon}
                       alt="Number of guests"
                     />
                     <p className="text-md font-semibold">{listing.maxGuests}</p>
