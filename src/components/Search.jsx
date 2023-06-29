@@ -42,11 +42,11 @@ function Search() {
   }, [query]);
 
   return (
-    <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 mt-3 md:mt-0">
+    <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 my-3 md:mt-0">
       <input
         type="text"
         placeholder="Search..."
-        className="bg-white border-2 border-primary shadow rounded-full w-[360px] lg:w-[500px] h-[48px] px-4 flex-grow"
+        className="bg-white border-2 border-primary shadow rounded-full w-[240px] lg:w-[500px] h-[36px] px-4 flex-grow "
         value={query}
         onChange={handleChange}
       />
