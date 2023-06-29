@@ -71,7 +71,7 @@ export const fetchOneListing = (id) => async (dispatch) => {
     return console.error("error from api call single listing", e.message);
   }
   if (response.ok) {
-    console.log("REDUCER response ok from single listing");
+    console.log("response ok from single listing in listingReducer");
   } else {
     console.log("REDUCER response not ok from single listing");
   }
