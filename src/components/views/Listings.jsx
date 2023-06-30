@@ -59,7 +59,7 @@ const Listings = () => {
   return (
     <div>
       <div
-        className="bg-image w-full flex-grow h-[600px] mt-[-50px] -z-50 border-2 border-red-500"
+        className="bg-image w-full flex-grow h-[600px] mt-[-50px] -z-50"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         <h1 className="text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl font-bold">
